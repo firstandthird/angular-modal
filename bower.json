@@ -1,0 +1,16 @@
+{
+  "name": "angular-modal",
+  "description": "A simple modal directive",
+  "version": "0.1.0",
+  "homepage": "http://github.com/firstandthird/angular-modal/",
+  "license": "MIT",
+  "copyright": "First + Third",
+  "main": "dist/angular-modal.js",
+  "dependencies": {
+    "jquery": ">=1.8.3",
+    "angular": ">=1.0.7"
+  },
+  "devDependencies": {
+    "assert": "*"
+  }
+}
