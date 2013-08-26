@@ -3,12 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <title>angular-modal example</title>
-    <script src="../components/angular/angular.js"></script>
-    <script src="../dist/angular-modal.js"></script>
+    <link rel="stylesheet" href="../bower_components/fidel-modal/dist/fidel.modal.css">
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../dist/angular-modal.full.js"></script>
+    <script src="../bower_components/fidel-modal/dist/fidel.modal.min.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
     <div ng-controller="MainController">
+
+      <button modal="modal/testModal.html" class="button" ng-click="modal.open()">Show modal</button>
+    
+      <div modal-container ></div>
     </div>
   </body>
 </html>
