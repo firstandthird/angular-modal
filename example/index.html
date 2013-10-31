@@ -14,7 +14,7 @@
     <div ng-controller="MainController">
 
       <button overlay="modal/testModal.html" overlay-options="{backdropClick:false}" class="button">Show modal</button>
-      <button overlay="modal/modal2.html" overlay-options="{backdropClick:false, overlayClass: 'overlay testclass'}" class="button">Show modal2</button>
+      <button overlay="modal/modal2.html" overlay-controller="Modal2Controller" overlay-options="{backdropClick:false, overlayClass: 'overlay testclass'}" class="button">Show modal2</button>
 
     </div>
   </body>
