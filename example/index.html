@@ -2,18 +2,17 @@
 <html lang="en" ng-app="example-app">
   <head>
     <meta charset="utf-8" />
-    <title>angular-modal example</title>
-    <link rel="stylesheet" href="../bower_components/fidel-modal/dist/fidel.modal.css">
+    <title>angular-overlay example</title>
+    <link rel="stylesheet" href="../bower_components/overlay/dist/overlay.css">
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
-    <script src="../dist/angular-modal.full.js"></script>
-    <script src="../bower_components/fidel-modal/dist/fidel.modal.min.js"></script>
+    <script src="../dist/angular-overlay.full.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
     <div ng-controller="MainController">
 
-      <button modal="modal/testModal.html" options="{backdropClick:false}" class="button">Show modal</button>
+      <button overlay="modal/testModal.html" overlay-options="{backdropClick:false}" class="button">Show modal</button>
 
     </div>
   </body>
