@@ -1,4 +1,4 @@
-angular.module('example-app', ['modal']);
+angular.module('example-app', ['ftOverlay']);
 
 var MainController = function($scope) {
   $scope.world = 'World';

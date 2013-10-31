@@ -7,12 +7,14 @@
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../dist/angular-overlay.full.js"></script>
+    <script src="modal/modal2.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
     <div ng-controller="MainController">
 
       <button overlay="modal/testModal.html" overlay-options="{backdropClick:false}" class="button">Show modal</button>
+      <button overlay="modal/modal2.html" overlay-options="{backdropClick:false, overlayClass: 'overlay testclass'}" class="button">Show modal2</button>
 
     </div>
   </body>
