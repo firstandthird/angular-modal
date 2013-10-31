@@ -1,4 +1,9 @@
 
+0.1.2 / 2013-10-31 
+==================
+
+  * better support for multiple overlays.  don't compile template until visible
+
 0.1.1 / 2013-10-31 
 ==================
 

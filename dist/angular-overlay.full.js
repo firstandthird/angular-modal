@@ -1,7 +1,7 @@
 
 /*!
  * angular-overlay - A simple modal directive
- * v0.1.1
+ * v0.1.2
  * http://github.com/firstandthird/angular-overlay/
  * copyright First + Third 2013
  * MIT License
@@ -261,9 +261,14 @@
   angular.module('ftOverlay', [])
     .factory('overlayTemplate', ['$http', '$templateCache', '$q', function($http, $templateCache, $q) {
       return function(templateUrl) {
-        return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true})
-          .then(function(res) { return res.data; }))
+        var ret = $templateCache.get(templateUrl) || $http.get(templateUrl);
+        return $q.when(ret)
           .then(function(template) {
+            if (typeof template !== 'string') {
+              //return from http call
+              template = template.data;
+              $templateCache.put(templateUrl, template);
+            }
             return template;
           });
       };
@@ -271,7 +276,8 @@
     .directive('overlay', ['overlayTemplate', '$compile', '$document', '$parse', function(overlayTemplate, $compile, $document, $parse) {
       return {
         link: function(scope, el, attrs) {
-          scope.overlayTemplate = overlayTemplate(attrs.overlay);
+
+          overlayTemplate(attrs.overlay);
 
           var container;
           var options = $parse(attrs.overlayOptions)() || {};
@@ -283,19 +289,19 @@
           container = $document.find('#overlayContainer');
 
           el.bind('click', function() {
-            scope.overlay = container.overlay(options).data('overlay');
+            scope.$apply(function() {
+              overlayTemplate(attrs.overlay).then(function(template) {
+                container.html('');
+                container.append(template);
+                $compile(container.contents())(scope);
+                scope.overlay = container.overlay(options).data('overlay');
+              });
+            });
           });
           scope.overlayClose = function() {
             scope.overlay.hide();
           };
 
-          scope.$watch('overlayTemplate', function(template) {
-            if(!angular.isDefined(template)) return;
-
-            container.html('');
-            container.append(template);
-            $compile(container.contents())(scope);
-          });
         }
       };
     }]);
