@@ -1,4 +1,0 @@
-
-suite('angular-modal', function() {
-
-});

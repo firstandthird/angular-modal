@@ -1,17 +1,27 @@
 {
-  "name": "angular-modal",
+  "name": "angular-overlay",
   "description": "A simple modal directive",
   "version": "0.1.0",
-  "homepage": "http://github.com/firstandthird/angular-modal/",
+  "homepage": "http://github.com/firstandthird/angular-overlay/",
   "license": "MIT",
   "copyright": "First + Third",
-  "main": "dist/angular-modal.js",
+  "main": "dist/angular-overlay.js",
   "dependencies": {
-    "jquery": ">=1.8.3",
-    "angular": ">=1.0.7",
-    "fidel-modal": "~0.1.5"
+    "jquery": "~1.10.0",
+    "angular": "~1.0.7",
+    "overlay": "~0.2.0"
   },
   "devDependencies": {
-    "assert": "*"
-  }
+    "assert": "*",
+    "blanket": "*"
+  },
+  "ignore": [
+    "test",
+    "example",
+    "grunt",
+    "lib",
+    "Gruntfile.js",
+    "package.json",
+    "grunt"
+  ]
 }

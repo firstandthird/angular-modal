@@ -1,7 +1,8 @@
+
 /*!
- * angular-modal - A simple modal directive
+ * angular-overlay - A simple modal directive
  * v0.1.0
- * http://github.com/firstandthird/angular-modal/
+ * http://github.com/firstandthird/angular-overlay/
  * copyright First + Third 2013
  * MIT License
 */
@@ -195,6 +196,67 @@
 
 })(jQuery);
 
+/*!
+ * overlay - Modal plugin
+ * v0.2.0
+ * https://github.com/firstandthird/overlay
+ * copyright First + Third 2013
+ * MIT License
+*/
+
+(function($) {
+  $.declare('overlay', {
+    defaults: {
+      overlayClass: 'overlay',
+      backdropClass: 'overlay-backdrop',
+      backdropClick: true
+    },
+
+    init: function() {
+
+      if ($('.'+this.overlayClass).length !== 0) {
+        $('.'+this.overlayClass).overlay('hide');
+      }
+
+      this.show();
+    },
+
+    getBackdrop: function() {
+      return $('.'+this.backdropClass);
+    },
+
+    showBackdrop: function() {
+      this.hideBackdrop();
+      var el = $('<div/>').addClass(this.backdropClass);
+      if (this.backdropClick) {
+        el.on('click', this.proxy(this.hide));
+      }
+      $('body').append(el);
+    },
+
+    hideBackdrop: function() {
+      this.getBackdrop().remove();
+    },
+
+    show: function() {
+      this.el.addClass(this.overlayClass);
+      $('body').css('overflow', 'hidden');
+      this.showBackdrop();
+      this.el.show();
+      this.emit('show');
+    },
+
+    hide: function() {
+      this.el.removeClass(this.overlayClass);
+      $('body').css('overflow', '');
+      this.hideBackdrop();
+      this.el.hide();
+      this.emit('hide');
+      this.el.removeData('overlay');
+    }
+  });
+})(jQuery);
+
 (function(){
   angular.module('modal', [])
     .factory('openModal', ['$http', '$templateCache', '$q', function($http, $templateCache, $q) {
@@ -206,28 +268,30 @@
           });
       };
     }])
-    .directive('modal', ['openModal', '$compile', '$rootScope', function(modal, $compile, $rootScope) {
+    .directive('modal', ['openModal', '$compile', '$document', '$parse', function(modal, $compile, $document, $parse) {
       return{
-        link: function(scope, el, attrs, controller) {
-          scope.modal = {
-            open: function() {
-              scope.modalTemplate = modal(attrs.modal);
-            }
-          };
-        }
-      };
-    }])
-    .directive('modalContainer', ['$compile', function($compile) {
-      return {
-        link: function(scope, el) {
-          scope.$watch('modalTemplate', function(template) {
-            if(angular.isDefined(template)) {
-              el.html('');
-              el.append(template);
-              $compile(el.contents())(scope);
+        link: function(scope, el, attrs) {
+          scope.modalTemplate = modal(attrs.modal);
 
-              var modal = el.modal();
-            }
+          var container;
+          var options = $parse(attrs.options)() || {};
+
+          if(!$document.find('#modalContainer').length) {
+            $document.find('body').append('<div id="modalContainer" style="display:none"></div>');
+          }
+
+          container = $document.find('#modalContainer');
+
+          el.bind('click', function() {
+            scope.modal = container.modal(options);
+          });
+
+          scope.$watch('modalTemplate', function(template) {
+            if(!angular.isDefined(template)) return;
+
+            container.html('');
+            container.append(template);
+            $compile(container.contents())(scope);
           });
         }
       };
