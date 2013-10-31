@@ -1,7 +1,7 @@
 
 /*!
  * angular-overlay - A simple modal directive
- * v0.1.0
+ * v0.1.1
  * http://github.com/firstandthird/angular-overlay/
  * copyright First + Third 2013
  * MIT License
@@ -258,7 +258,7 @@
 })(jQuery);
 
 (function(){
-  angular.module('modal', [])
+  angular.module('ftOverlay', [])
     .factory('overlayTemplate', ['$http', '$templateCache', '$q', function($http, $templateCache, $q) {
       return function(templateUrl) {
         return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true})
