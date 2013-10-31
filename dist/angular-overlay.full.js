@@ -1,7 +1,7 @@
 
 /*!
  * angular-overlay - A simple modal directive
- * v0.1.2
+ * v0.2.0
  * http://github.com/firstandthird/angular-overlay/
  * copyright First + Third 2013
  * MIT License
@@ -273,11 +273,12 @@
           });
       };
     }])
-    .directive('overlay', ['overlayTemplate', '$compile', '$document', '$parse', function(overlayTemplate, $compile, $document, $parse) {
+    .directive('overlay', ['overlayTemplate', '$compile', '$document', '$parse', '$controller', function(overlayTemplate, $compile, $document, $parse, $controller) {
       return {
         link: function(scope, el, attrs) {
 
           overlayTemplate(attrs.overlay);
+          var controller = attrs.overlayController;
 
           var container;
           var options = $parse(attrs.overlayOptions)() || {};
@@ -293,6 +294,9 @@
               overlayTemplate(attrs.overlay).then(function(template) {
                 container.html('');
                 container.append(template);
+                if (controller) {
+                  var ctrl = $controller(controller, { $scope: scope });
+                }
                 $compile(container.contents())(scope);
                 scope.overlay = container.overlay(options).data('overlay');
               });
