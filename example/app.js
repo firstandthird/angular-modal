@@ -1,8 +1,9 @@
 angular.module('example-app', ['ftOverlay']);
 
-var MainController = function($scope) {
+var MainController = function($scope, overlay) {
   $scope.world = 'World';
   $scope.name = '';
+  $scope.number = 1;
 
   $scope.$watch('name', function(val) {
     console.log('name changed', val);
@@ -15,6 +16,14 @@ var MainController = function($scope) {
     }
 
     $scope.overlayClose();
+  };
+
+  $scope.inputChanged = function() {
+    console.log('changed');
+    var message = new overlay($scope, {
+      overlay: 'modal/factoryModal.html'
+    });
+    message.open();
   };
 
 };
