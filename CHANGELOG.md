@@ -1,4 +1,10 @@
 
+0.3.0 / 2013-12-12 
+==================
+
+ * Merge pull request #5 from firstandthird/feature/overlay-service
+ * Created overlay factory to trigger modal from controller.
+
 0.2.0 / 2013-10-31 
 ==================
 

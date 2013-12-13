@@ -1,7 +1,7 @@
 {
   "name": "angular-overlay",
   "description": "A simple modal directive",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "http://github.com/firstandthird/angular-overlay/",
   "license": "MIT",
   "copyright": "First + Third",
