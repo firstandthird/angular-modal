@@ -1,4 +1,9 @@
 
+0.4.0 / 2014-01-14 
+==================
+
+  * prevent fetching modal template multiple times
+
 0.3.0 / 2013-12-12 
 ==================
 

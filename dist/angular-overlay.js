@@ -1,25 +1,26 @@
 
 /*!
  * angular-overlay - A simple modal directive
- * v0.2.0
+ * v0.4.0
  * http://github.com/firstandthird/angular-overlay/
- * copyright First + Third 2013
+ * copyright First + Third 2014
  * MIT License
 */
 (function(){
   angular.module('ftOverlay', [])
     .factory('overlayTemplate', ['$http', '$templateCache', '$q', function($http, $templateCache, $q) {
+      var promises = {};
       return function(templateUrl) {
-        var ret = $templateCache.get(templateUrl) || $http.get(templateUrl);
-        return $q.when(ret)
-          .then(function(template) {
-            if (typeof template !== 'string') {
-              //return from http call
-              template = template.data;
-              $templateCache.put(templateUrl, template);
-            }
-            return template;
+        if (promises[templateUrl]) {
+          return promises[templateUrl];
+        }
+
+        promises[templateUrl] = $http.get(templateUrl)
+          .then(function(response) {
+            return response.data;
           });
+
+        return promises[templateUrl];
       };
     }])
     .factory('overlay', ['overlayTemplate', '$compile', '$document', '$parse', '$controller', function(overlayTemplate, $compile, $document, $parse, $controller) {
